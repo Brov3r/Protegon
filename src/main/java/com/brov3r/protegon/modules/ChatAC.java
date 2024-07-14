@@ -24,6 +24,9 @@ import java.util.regex.Pattern;
 public class ChatAC {
     private static final List<String> cachedBanWords = new ArrayList<>();
 
+    /**
+     * Initializing filters for prohibited words.
+     */
     public static void initFilters() {
         List<String> banWordsURLList = Main.getConfig().getStringList("chatFilter.banWordsRawListUrl");
 
@@ -35,10 +38,15 @@ public class ChatAC {
                 System.err.printf("[!] Failed to fetch ban words from URL %s: %s%n", url, e.getMessage());
             }
         }
-
-        System.out.println(cachedBanWords);
     }
 
+    /**
+     * Loads words from the specified URL.
+     *
+     * @param urlString The URL to load the words.
+     * @return A list of words loaded from the URL.
+     * @throws IOException if an I/O error occurs while loading data.
+     */
     private static List<String> fetchWordsFromUrl(String urlString) throws IOException {
         List<String> words = new ArrayList<>();
         URL url = new URL(urlString);
@@ -130,6 +138,6 @@ public class ChatAC {
             if (matcher.find()) return true;
         }
 
-        return false;
+        return cachedBanWords.contains(word.toLowerCase());
     }
 }

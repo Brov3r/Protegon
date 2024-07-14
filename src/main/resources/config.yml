@@ -228,7 +228,7 @@ chatFilter:
   # Link to file with swear words
   banWordsRawListUrl:
     - "https://raw.githubusercontent.com/bars38/Russian_ban_words/master/words.txt"
-    - "https://raw.githubusercontent.com/bars38/Russian_ban_words/master/words.txt"
+    - "https://raw.githubusercontent.com/Brov3r/Protegon/main/BanWords/filter_steam_russian.txt"
   # Regular expression patterns for banned words
   # Write in lower case.
   patternListWords:
