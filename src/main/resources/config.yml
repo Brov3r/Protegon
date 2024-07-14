@@ -159,7 +159,7 @@ antiBrushTool:
   #  1 - only logging,
   #  2 - kick from the server + logging,
   #  3 - blocking by IP/SteamID + logging).
-  punishType: 1
+  punishType: 3
   # Allowed time between placing objects on the map (if user skills reduce the time for placement, you need to change this value)
   # The value is calculated in milliseconds
   placeTimeLimit: 1500
