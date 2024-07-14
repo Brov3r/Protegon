@@ -1,6 +1,7 @@
 package com.brov3r.protegon.utils;
 
 import com.avrix.utils.PlayerUtils;
+import com.brov3r.protegon.modules.InventoryAC;
 import zombie.GameWindow;
 import zombie.characters.IsoPlayer;
 import zombie.core.network.ByteBufferWriter;
@@ -89,5 +90,6 @@ public class InventoryTools {
             playerInventory.addItem(item);
         }
         player.setInventory(playerInventory);
+        InventoryAC.handleInvWeight(player, capacityWeight, maxWeight);
     }
 }

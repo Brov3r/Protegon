@@ -238,7 +238,7 @@ chatFilter:
     - "\\w*(го(вн|мик|мек)|(а|о)ху(е|ё|и|й))\\w*"
     - "\\w*((е|ё)ба(н|л|ш|т)|бля(д|т)|(е|ё)б(у|ись|ну(т|л|ш|в)|ка|ли|ен|ищ|ит|ош))\\w*"
     - "\\w*(мудак|г(о|а)ндон|пизд|залуп|х(у(й|е|ё|и|я|ю)|ер|рен))\\w*"
-    - "\w*хитровыебанн\\w*"
+    - "\\w*хитровыебанн\\w*"
     - "\\w*захуярил\\w*"
     - "\\w*наебашил\\w*"
     - "\\w*поебался\\w*"
@@ -271,44 +271,20 @@ itemDupe:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
   # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicious use of Item Dupe"
+  # Template: <ITEM> - an object that looks suspicious
+  punishTextDupe: "Suspicion of tampering with inventory | ID: <ITEM>"
+  # Text that will be displayed to the player when receiving a punishment
+  # Template: <WEIGHT> - player weight
+  punishTextUnlimitedCarry: "Suspicious use of UnlimitedCarry | Weight: <WEIGHT>"
   #  0 - nothing,
   #  1 - only logging,
   #  2 - kick from the server + logging,
   #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
+  punishType: 2
+  # Maximum player weight. Higher - unlimited carry
+  playerMaxWeight: 60
   # Player inventory update time in ms. The less, the less performance.
-  updateTime: 7000
+  updateTime: 5000
   # List of prohibited identifiers (partial or complete)
   blackList:
-    - "molotov"
-    - "bomb"
     - "aerosol"
-    - "flametrap"
-    - "noisetrap"
-    - "remotecrafted"
-  # The maximum number of items in a player's inventory.
-  # Format list: "ID:COUNT"
-  maxCountItems:
-    - "Base.Katana:3"
-    - "Base.Machete:5"
-    - "Base.Pencil:50"
-    - "Base.Pen:50"
-    - "Base.RedPen:50"
-    - "Base.BluePen:50"
-    - "Base.Log:100"
-    - "Base.Plank:100"
-    - "Base.AssaultRifle2:5"
-    - "Base.AssaultRifle:5"
-    - "Base.VarmintRifle:5"
-    - "Base.HuntingRifle:5"
-    - "Base.DoubleBarrelShotgun:5"
-    - "Base.DoubleBarrelShotgunSawnoff:5"
-    - "Base.Shotgun:5"
-    - "Base.ShotgunSawnoff:5"
-    - "Base.Pistol3:5"
-    - "Base.Pistol2:5"
-    - "Base.Revolver_Short:5"
-    - "Base.Revolver:5"
-    - "Base.Pistol:5"
-    - "Base.Revolver_Long:5"

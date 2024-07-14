@@ -12,6 +12,7 @@ import zombie.network.ZomboidNetData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -30,58 +31,47 @@ public class InventoryAC {
         ItemContainer inventory = player.getInventory();
         if (inventory == null) return;
 
-        ArrayList<InventoryItem> items = inventory.getItems();
         HashMap<String, Integer> itemsCount = new HashMap<>();
 
-        for (InventoryItem item : items) {
+        for (InventoryItem item : inventory.getItems()) {
             if (item == null) continue;
 
-            String itemID = item.getFullType().toLowerCase();
+            itemsCount.merge(item.getFullType(), 1, Integer::sum);
+        }
 
-            String punishText = String.format("%s | ID: %s",
-                    Main.getConfig().getString("itemDupe.punishText"),
-                    itemID);
+        for (Map.Entry<String, Integer> entry : itemsCount.entrySet()) {
+            String itemID = entry.getKey();
+            int count = entry.getValue();
 
-            for (Object idRow : Main.getConfig().getList("itemDupe.blackList")) {
-                String blackID = (String) idRow;
-
-                if (item.getFullType().toLowerCase().contains(blackID.toLowerCase())) {
+            for (String blackID : Main.getConfig().getStringList("itemDupe.blackList")) {
+                if (itemID.toLowerCase().contains(blackID.toLowerCase())) {
                     AntiCheatUtils.punishPlayer(
                             Main.getConfig().getInt("itemDupe.punishType"),
                             player,
-                            punishText);
+                            Main.getConfig().getString("itemDupe.punishTextDupe").replace("<ITEM>", itemID));
                     return;
                 }
             }
-
-            Integer count = itemsCount.getOrDefault(itemID, 0);
-            count++;
-            itemsCount.put(itemID, count);
         }
+    }
 
-        for (String dataMaxItem : Main.getConfig().getStringList("itemDupe.maxCountItems")) {
-            String[] argsData = dataMaxItem.split(":");
-            String itemID = argsData[0].toLowerCase().trim();
-            int maxCount = 1;
-            try {
-                maxCount = Integer.parseInt(argsData[1].trim());
-            } catch (NumberFormatException numberFormatException) {
-                continue;
-            }
+    /**
+     * Checking a player for unlimited carry
+     *
+     * @param player    player instance
+     * @param weight    player's current weight
+     * @param maxWeight maximum player weight
+     */
+    public static void handleInvWeight(IsoPlayer player, float weight, float maxWeight) {
+        if (!Main.getConfig().getBoolean("itemDupe.isEnable") || AntiCheatUtils.isPlayerHasRights(player)) return;
 
-            Integer count = itemsCount.getOrDefault(itemID, 0);
-            String punishText = String.format("%s | ID: %s | Count: %s",
-                    Main.getConfig().getString("itemDupe.punishText"),
-                    itemID,
-                    count);
+        int limitWeight = Main.getConfig().getInt("itemDupe.playerMaxWeight");
 
-            if (count >= maxCount) {
-                AntiCheatUtils.punishPlayer(
-                        Main.getConfig().getInt("itemDupe.punishType"),
-                        player,
-                        punishText);
-                return;
-            }
+        if (weight >= limitWeight) {
+            AntiCheatUtils.punishPlayer(
+                    Main.getConfig().getInt("itemDupe.punishType"),
+                    player,
+                    Main.getConfig().getString("itemDupe.punishTextUnlimitedCarry").replace("<WEIGHT>", String.valueOf(weight)));
         }
     }
 
