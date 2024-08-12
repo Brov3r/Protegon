@@ -374,3 +374,37 @@ chatImpersonator:
   #  2 - kick from the server + logging,
   #  3 - blocking by IP/SteamID + logging).
   punishType: 3
+
+###############################
+#                             #
+#        Thunder              #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+thunder:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of creating a thunderstorm (cheats)"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2
+
+###############################
+#                             #
+#        Fire                 #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+fire:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of creating a fire (cheats)"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2

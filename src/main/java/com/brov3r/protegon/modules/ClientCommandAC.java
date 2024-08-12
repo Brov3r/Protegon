@@ -33,5 +33,7 @@ public class ClientCommandAC {
 
         // Delegate handling of vehicle commands
         VehicleAC.handleClientCommand(command, method, player);
+        ThunderAC.handleClientCommand(command, method, player);
+        FireAC.handleClientCommand(command, method, player);
     }
 }
