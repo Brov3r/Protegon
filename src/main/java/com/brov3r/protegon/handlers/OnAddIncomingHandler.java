@@ -54,6 +54,11 @@ public class OnAddIncomingHandler extends OnAddIncomingEvent {
 
         try {
             switch (packetType) {
+                case ChangePlayerStats -> ChangeStatsAC.handlePacket(packet, player, udpConnection);
+                case ChatMessageFromPlayer -> ChatImpersonatorAC.handlePacket(packet, player, udpConnection);
+                case AddExplosiveTrap -> ExplosiveAC.handlePacket(packet, player, udpConnection);
+                case InvMngGetItem -> ItemSpawnerAC.handlePacket(packet, player, udpConnection);
+                case SyncSafehouse -> SafeHouseAC.handlePacket(packet, player, udpConnection);
                 case ClientCommand -> ClientCommandAC.handlePacket(packet, player, udpConnection);
                 case ExtraInfo -> ExtraInfoAC.handlePacket(packet, player, udpConnection);
                 case SyncXP -> SkillAC.handlePacket(packet, player, udpConnection);

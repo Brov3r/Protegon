@@ -76,6 +76,8 @@ public class BrushToolAC {
         object.square = IsoWorld.instance.CurrentCell.getGridSquare(x, y, z);
 
         if (object.square == null) return true;
+        
+        float distance = IsoObjectUtils.getDistance(player, object);
 
         object.removeFromSquare();
         object.removeFromWorld();
@@ -114,7 +116,6 @@ public class BrushToolAC {
         }
 
         // Handle placement limits and checks
-        float distance = IsoObjectUtils.getDistance(player, object);
 
         System.out.printf("[#] AC - Player '%s' placed object '%s' at coordinates: [%s, %s, %s]. Distance: %.1f%n",
                 player.getUsername(),

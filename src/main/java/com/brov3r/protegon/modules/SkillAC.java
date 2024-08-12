@@ -35,7 +35,7 @@ public class SkillAC {
         try {
             player.getXp().load(byteBuffer, 195);
         } catch (Exception e) {
-            System.out.printf("[!] Не удалось загрузить навыки игрока '%s': %s%n", player.getUsername(), e.getMessage());
+            System.out.printf("[!] Failed to load player skills '%s': %s%n", player.getUsername(), e.getMessage());
         }
 
         double survivedHours = player.getHoursSurvived();

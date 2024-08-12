@@ -13,4 +13,4 @@ entrypoints:
   - "com.brov3r.protegon.Main"
 dependencies:
   pz-core: ">=41.78.16"
-  avrix-loader: ">=1.3.0"
+  avrix-loader: ">=1.5.0"

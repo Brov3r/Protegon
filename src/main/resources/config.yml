@@ -23,9 +23,9 @@ general:
   # Do you need to log incoming client commands from LUA?
   isLogClientCommand: false
   # Do you need to additionally block the IP when blocking?
-  isBanIpEnable: false
+  isBanIpEnable: true
   # Do you need to additionally block SteamID (if a license) when blocking?
-  isBanSteamIdEnable: false
+  isBanSteamIdEnable: true
   # Nicknames of players on whom the anti-cheat will not work (white list)
   whiteListUsername:
     - "admin"
@@ -135,9 +135,9 @@ skillAntiCheat:
   #  3 - blocking by IP/SteamID + logging).
   punishType: 3
   # The maximum level that can be obtained in a specified time
-  maxLevel: 7
+  maxLevel: 10
   # Minimum time (in-game) after which a player can level up above the specified level
-  minHours: 6
+  minHours: 2
   # Do you need to log changes in player experience?
   isLogChangeExperience: false
 
@@ -159,15 +159,15 @@ antiBrushTool:
   #  1 - only logging,
   #  2 - kick from the server + logging,
   #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
+  punishType: 2
   # Allowed time between placing objects on the map (if user skills reduce the time for placement, you need to change this value)
   # The value is calculated in milliseconds
   placeTimeLimit: 1500
   # The maximum number of objects that a player can install instantly before the anti-cheat is triggered
   # For example, placing a bed of 4 squares causes it to be checked 4 times in one instant
-  maxObjectPlace: 5
+  maxObjectPlace: 8
   # Maximum number of placements of the same object
-  maxTotalObjectPlace: 12
+  maxTotalObjectPlace: 15
   # The amount of time a player must wait after placing the maximum number of items
   maxTotalTimeDelay: 5000
   # Blacklist of sprites of objects to be placed on the map (for example, a water sprite cannot be placed in an honest way)
@@ -193,6 +193,7 @@ antiBrushTool:
   # List of sprites for which anti-cheat will not work, you can specify a partial name
   whiteListSprite:
     - "invisible"
+    - "roofs"
 
 ###############################
 #                             #
@@ -280,7 +281,7 @@ itemDupe:
   #  1 - only logging,
   #  2 - kick from the server + logging,
   #  3 - blocking by IP/SteamID + logging).
-  punishType: 2
+  punishType: 1
   # Maximum player weight. Higher - unlimited carry
   playerMaxWeight: 60
   # Player inventory update time in ms. The less, the less performance.
@@ -288,3 +289,88 @@ itemDupe:
   # List of prohibited identifiers (partial or complete)
   blackList:
     - "aerosol"
+
+###############################
+#                             #
+#        ItemSpawner          #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+itemSpawner:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of item spawning"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
+#        Explosive            #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+explosive:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of bomb spawning"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2
+
+###############################
+#                             #
+#        ChangeStats          #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+changeStats:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of changing the player's characteristics through a cheat"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2
+
+###############################
+#                             #
+#        SafeHouse            #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+safeHouse:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of using a cheat on safehouse"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
+#        ChatImpersonator     #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+chatImpersonator:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of sending a message on someone else's behalf"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3

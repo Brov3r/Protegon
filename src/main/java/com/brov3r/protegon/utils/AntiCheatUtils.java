@@ -20,7 +20,7 @@ public class AntiCheatUtils {
     public static void punishPlayer(int punishType, IsoPlayer player, String reason) {
         if (punishType == PunishType.NOTHING.ordinal()) return;
 
-        System.out.printf("[!] AC - Player '%s' was found to be in violation due to: %s%n", player.getDisplayName(), reason);
+        System.out.printf("[?] AC - Player '%s' was found to be in violation due to: %s%n", player.getDisplayName(), reason);
 
         if (punishType == PunishType.LOGGING.ordinal()) return;
 
