@@ -339,7 +339,7 @@ changeStats:
   #  1 - only logging,
   #  2 - kick from the server + logging,
   #  3 - blocking by IP/SteamID + logging).
-  punishType: 2
+  punishType: 3
 
 ###############################
 #                             #
