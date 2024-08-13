@@ -2,7 +2,7 @@ package com.brov3r.protegon.utils;
 
 import com.brov3r.protegon.Main;
 import org.json.JSONObject;
-import zombie.characters.IsoPlayer;
+import zombie.core.raknet.UdpConnection;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -18,15 +18,13 @@ public class DiscordWebhook {
     /**
      * Sending a message via DiscordWebHook
      *
-     * @param player player object
-     * @param reason message text
+     * @param udpConnection player connection
+     * @param reason        message text
      */
-    public static void sendMessage(IsoPlayer player, String adminName, String reason) {
-        if (player == null) return;
-
+    public static void sendMessage(UdpConnection udpConnection, String adminName, String reason) {
         if (Main.getConfig().getBoolean("discordAlert.isEnable")) return;
 
-        String text = formatTemplate(player, adminName, reason).trim();
+        String text = formatTemplate(udpConnection, adminName, reason).trim();
         String webHookUrl = Main.getConfig().getString("discordAlert.webHookURL").trim();
         String avatarURL = Main.getConfig().getString("discordAlert.botAvatarURL").trim();
         String botUsername = Main.getConfig().getString("discordAlert.botUsername").trim();
@@ -51,24 +49,24 @@ public class DiscordWebhook {
                     .thenAccept(System.out::println)
                     .join();
         } catch (Exception e) {
-            System.out.printf("[!] AC - An error occurred while sending a message to discord: %s%n", e.getMessage());
+            System.out.printf("[!] DiscordAlert - An error occurred while sending a message to Discord: %s%n", e.getMessage());
         }
     }
 
     /**
      * Formatting a message template for data
      *
-     * @param player player object
-     * @param reason reason for punishment
+     * @param udpConnection player connection
+     * @param reason        reason for punishment
      * @return formatted text
      */
-    private static String formatTemplate(IsoPlayer player, String adminName, String reason) {
+    private static String formatTemplate(UdpConnection udpConnection, String adminName, String reason) {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
         String formattedDate = dateFormat.format(currentDate);
 
         return Main.getConfig().getString("discordAlert.messageTemplate")
-                .replace("<PLAYER_NAME>", player.getUsername())
+                .replace("<PLAYER_NAME>", udpConnection.username)
                 .replace("<DATE>", formattedDate)
                 .replace("<ADMIN_NAME>", adminName.isEmpty() ? "Console" : adminName)
                 .replace("<REASON>", reason.isEmpty() ? "-" : reason);

@@ -3,7 +3,7 @@ package com.brov3r.protegon.modules;
 import com.avrix.utils.ChatUtils;
 import com.avrix.utils.PlayerUtils;
 import com.brov3r.protegon.Main;
-import com.brov3r.protegon.utils.AntiCheatUtils;
+import com.brov3r.protegon.utils.ModuleUtils;
 import zombie.characters.IsoPlayer;
 import zombie.chat.ChatBase;
 import zombie.chat.ChatMessage;
@@ -19,23 +19,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Handles chat message filtering and anti-cheat measures for chat interactions.
+ * Chat
  */
-public class ChatAC {
+public class ChatModule {
     private static final List<String> cachedBanWords = new ArrayList<>();
+
+    private static final String moduleName = "chatFilter";
 
     /**
      * Initializing filters for prohibited words.
      */
     public static void initFilters() {
-        List<String> banWordsURLList = Main.getConfig().getStringList("chatFilter.banWordsRawListUrl");
+        List<String> banWordsURLList = Main.getConfig().getStringList(moduleName + ".banWordsRawListUrl");
 
         for (String url : banWordsURLList) {
             try {
                 List<String> wordsFromUrl = fetchWordsFromUrl(url);
                 cachedBanWords.addAll(wordsFromUrl);
             } catch (IOException e) {
-                System.err.printf("[!] Failed to fetch ban words from URL %s: %s%n", url, e.getMessage());
+                System.err.printf("[!] Chat - Failed to fetch ban words from URL %s: %s%n", url, e.getMessage());
             }
         }
     }
@@ -79,23 +81,21 @@ public class ChatAC {
 
         if (player == null) return false;
 
+        UdpConnection connection = PlayerUtils.getUdpConnectionByPlayer(player);
+        if (connection == null) return false;
+
         // Check if chat filter is enabled and if player has rights to bypass it
-        if (!Main.getConfig().getBoolean("chatFilter.isEnable") || AntiCheatUtils.isPlayerHasRights(player))
+        if (!Main.getConfig().getBoolean(moduleName + ".isEnable") || ModuleUtils.isPlayerHasRights(player))
             return true;
 
         for (String word : words) {
             if (!isForbiddenWord(word.toLowerCase())) continue;
 
-            AntiCheatUtils.punishPlayer(Main.getConfig().getInt("chatFilter.punishType"),
-                    player,
-                    Main.getConfig().getString("chatFilter.punishText").replace("<WORD>", word));
+            ModuleUtils.punishPlayer(moduleName + "", connection);
 
-            if (Main.getConfig().getInt("chatFilter.punishType") != 0) {
-                UdpConnection connection = PlayerUtils.getUdpConnectionByPlayer(player);
-                if (connection == null) return false;
-
+            if (Main.getConfig().getInt(moduleName + ".punishType") != 0) {
                 // Send a blocking message to the player if punishment type is not zero
-                ChatUtils.sendMessageToPlayer(connection, Main.getConfig().getString("chatFilter.blockingChatMessage")
+                ChatUtils.sendMessageToPlayer(connection, Main.getConfig().getString(moduleName + ".blockingChatMessage")
                         .replace("<WORD>", word)
                         .replace("<SPACE>", ChatUtils.SPACE_SYMBOL));
                 return false;
@@ -112,13 +112,13 @@ public class ChatAC {
      * @return true if the word is forbidden; false if allowed.
      */
     private static boolean isForbiddenWord(String word) {
-        ArrayList<String> whiteWords = new ArrayList<>(List.of(Main.getConfig().getString("chatFilter.whiteListWords")
+        ArrayList<String> whiteWords = new ArrayList<>(List.of(Main.getConfig().getString(moduleName + ".whiteListWords")
                 .trim()
                 .replace("\n", "")
                 .replace(" ", "")
                 .split(",")));
 
-        ArrayList<String> blackWords = new ArrayList<>(List.of(Main.getConfig().getString("chatFilter.blackListWords")
+        ArrayList<String> blackWords = new ArrayList<>(List.of(Main.getConfig().getString(moduleName + ".blackListWords")
                 .trim()
                 .replace("\n", "")
                 .replace(" ", "")
@@ -131,7 +131,7 @@ public class ChatAC {
         if (blackWords.contains(word.toLowerCase())) return true;
 
         // Check against pattern list words
-        for (String template : Main.getConfig().getStringList("chatFilter.patternListWords")) {
+        for (String template : Main.getConfig().getStringList(moduleName + ".patternListWords")) {
             Pattern pattern = Pattern.compile(template);
             Matcher matcher = pattern.matcher(word);
 

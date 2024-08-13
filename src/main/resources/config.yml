@@ -20,12 +20,10 @@ general:
     - "ClientCommand"
     - "Vehicles"
     - "ChunkObjectState"
-  # Do you need to log incoming client commands from LUA?
-  isLogClientCommand: false
   # Do you need to additionally block the IP when blocking?
-  isBanIpEnable: true
+  isBanIpEnable: false
   # Do you need to additionally block SteamID (if a license) when blocking?
-  isBanSteamIdEnable: true
+  isBanSteamIdEnable: false
   # Nicknames of players on whom the anti-cheat will not work (white list)
   whiteListUsername:
     - "admin"
@@ -46,9 +44,9 @@ discordAlert:
   # Link to WebHook chat channel
   webHookURL: "..."
   # Nickname of the bot that will write notifications
-  botUsername: "Alert"
+  botUsername: "WatchDog"
   # Avatar of the bot that will write notifications
-  botAvatarURL: "https://sh19-shaxtersk-r897.gosweb.gosuslugi.ru/netcat_files/200/3528/X0g_RtWCbQY.jpg"
+  botAvatarURL: "https://img.freepik.com/free-icon/dog_318-285321.jpg?size=626&ext=jpg"
   # Template of the message that will be displayed in the chat
   # Arguments:
   # <PLAYER_NAME> - player nickname
@@ -59,48 +57,11 @@ discordAlert:
 
 ###############################
 #                             #
-#          VEHICLE            #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Vehicle Cheat
-vehicleAntiCheat:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  # Template: <ACTION> - the action that the offender tried to do
-  punishText: "Suspicious use of Vehicle Cheat | Action: <ACTION>"
-  # Choice of punishment for certain types of cheats
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
-
-###############################
-#                             #
-#        EXTRA INFO           #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Extra Info
-extraInfoAntiCheat:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicious use of Extra Info"
-  # Choice of punishment for certain types of cheats
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
-
-###############################
-#                             #
 #            VPN              #
 #                             #
 ###############################
 # Anti VPN in all its glory
-antiVPN:
+vpn:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
   # Text that will be displayed to the player when receiving a punishment
@@ -116,18 +77,136 @@ antiVPN:
 
 ###############################
 #                             #
+#          VEHICLE            #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Vehicle Cheat
+vehicleCommands:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicious use of Vehicle Cheat Commands"
+  # Choice of punishment for certain types of cheats
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
+#        Thunder              #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+thunder:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of creating a thunderstorm (cheats)"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2
+
+###############################
+#                             #
+#        Fire                 #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+fire:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of creating a fire (cheats)"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2
+
+###############################
+#                             #
+#        EXTRA INFO           #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Extra Info
+extraInfo:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicious use of Extra Info"
+  # Choice of punishment for certain types of cheats
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
+#        Explosive            #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+explosive:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of bomb spawning"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2
+
+###############################
+#                             #
+#        ChangeStats          #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+changeStats:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of changing the player's stats through a cheat"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
+#        ItemSpawner          #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+itemSpawner:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of item spawning"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
 #            Skill            #
 #                             #
 ###############################
 # Anti-cheat that prevents the use of Skills Cheat
-skillAntiCheat:
+skill:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
   # Text that will be displayed to the player when receiving a punishment
-  # Template: <SKILL> - skill name
-  # <LEVEL> - skill level
-  # <HOURS> - number of hours lived
-  punishText: "Suspicious use of Skills Cheat | Skill: <SKILL> | Level: <LEVEL> | Survived hours: <HOURS>"
+  punishText: "Suspicious use of Skills Cheat"
   # Choice of punishment for certain types of cheats
   #  0 - nothing,
   #  1 - only logging,
@@ -138,8 +217,6 @@ skillAntiCheat:
   maxLevel: 10
   # Minimum time (in-game) after which a player can level up above the specified level
   minHours: 2
-  # Do you need to log changes in player experience?
-  isLogChangeExperience: false
 
 ###############################
 #                             #
@@ -147,29 +224,23 @@ skillAntiCheat:
 #                             #
 ###############################
 # Anti-cheat that prevents the use of BrushTool
-antiBrushTool:
+brushTool:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
   # Text that will be displayed to the player when receiving a punishment
-  # Template: <DISTANCE> - distance between player and object
-  # <SPRITE> - name of the placed item
-  punishText: "Suspicious use of BrushTool | Distance: <DISTANCE> | Object: <SPRITE>"
+  punishText: "Suspicious use of BrushTool"
   # Choice of punishment for certain types of cheats
   #  0 - nothing,
   #  1 - only logging,
   #  2 - kick from the server + logging,
   #  3 - blocking by IP/SteamID + logging).
   punishType: 2
-  # Allowed time between placing objects on the map (if user skills reduce the time for placement, you need to change this value)
-  # The value is calculated in milliseconds
-  placeTimeLimit: 1500
-  # The maximum number of objects that a player can install instantly before the anti-cheat is triggered
-  # For example, placing a bed of 4 squares causes it to be checked 4 times in one instant
-  maxObjectPlace: 8
-  # Maximum number of placements of the same object
-  maxTotalObjectPlace: 15
-  # The amount of time a player must wait after placing the maximum number of items
-  maxTotalTimeDelay: 5000
+  # An area where the player cannot place objects
+  placeDistanceMin: 6
+  placeDistanceMax: 15
+  # Object placement time in ms, which is considered cheating
+  placeTimeMin: 150
+  placeTimeMax: 1500
   # Blacklist of sprites of objects to be placed on the map (for example, a water sprite cannot be placed in an honest way)
   # The name of the sprite is indicated, not the object itself
   blackListSprite:
@@ -197,6 +268,40 @@ antiBrushTool:
 
 ###############################
 #                             #
+#        ChatImpersonator     #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+chatImpersonator:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of sending a message on someone else's behalf"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
+#        SafeHouse            #
+#                             #
+###############################
+# Anti-cheat that prevents the use of Item Dupe
+safeHouse:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of using a cheat on safehouse"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
 #        ChatFilter           #
 #                             #
 ###############################
@@ -210,7 +315,7 @@ chatFilter:
   blockingChatMessage: "<RGB:1,1,1> [ <SPACE> <RGB:0.8,0.4,0.2> ! <SPACE> <RGB:1,1,1> ] Your message has been blocked! Word: <SPACE> <RGB:0.8,0.4,0.2> <WORD>"
   # Text that will be displayed to the player when receiving a punishment
   # Template: <WORD> - forbidden word
-  punishText: "Using prohibited words in chat | Word: <WORD>"
+  punishText: "Using prohibited words in chat"
   # Choice of punishment for certain types of cheats
   #  0 - nothing,
   #  1 - only logging + blocking message,
@@ -261,150 +366,3 @@ chatFilter:
     - "\\w*хуй\\w*"
     - "n+([ehiy]+|ay|ey|io|[il]+)[bgq$]+h?(a+|aer|a+h+|a+r+|e+|ea|eoa|e+r+|ie|ier|let|lit|o|or|r+|u|uh|uhr|u+r+|ward|y+)s*"
     - "f[ae]y?g+[oeiu]+t+s?"
-
-###############################
-#                             #
-#        ItemDupe             #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-itemDupe:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  # Template: <ITEM> - an object that looks suspicious
-  punishTextDupe: "Suspicion of tampering with inventory | ID: <ITEM>"
-  # Text that will be displayed to the player when receiving a punishment
-  # Template: <WEIGHT> - player weight
-  punishTextUnlimitedCarry: "Suspicious use of UnlimitedCarry | Weight: <WEIGHT>"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 1
-  # Maximum player weight. Higher - unlimited carry
-  playerMaxWeight: 60
-  # Player inventory update time in ms. The less, the less performance.
-  updateTime: 5000
-  # List of prohibited identifiers (partial or complete)
-  blackList:
-    - "aerosol"
-
-###############################
-#                             #
-#        ItemSpawner          #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-itemSpawner:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of item spawning"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
-
-###############################
-#                             #
-#        Explosive            #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-explosive:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of bomb spawning"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 2
-
-###############################
-#                             #
-#        ChangeStats          #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-changeStats:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of changing the player's stats through a cheat"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
-
-###############################
-#                             #
-#        SafeHouse            #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-safeHouse:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of using a cheat on safehouse"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
-
-###############################
-#                             #
-#        ChatImpersonator     #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-chatImpersonator:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of sending a message on someone else's behalf"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
-
-###############################
-#                             #
-#        Thunder              #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-thunder:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of creating a thunderstorm (cheats)"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 2
-
-###############################
-#                             #
-#        Fire                 #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-fire:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of creating a fire (cheats)"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 2

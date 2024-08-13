@@ -1,7 +1,7 @@
 package com.brov3r.protegon.patches;
 
 import com.avrix.agent.ClassTransformer;
-import com.brov3r.protegon.modules.BrushToolAC;
+import com.brov3r.protegon.handlers.OnAddIncomingHandler;
 import javassist.CannotCompileException;
 
 /**
@@ -21,11 +21,13 @@ public class PatchGameServer extends ClassTransformer {
      */
     @Override
     public void modifyClass() {
-        getModifierBuilder().modifyMethod("receiveAddItemToMap", (ctClass, ctMethod) -> {
+        getModifierBuilder().modifyMethod("addIncoming", (ctClass, ctMethod) -> {
             try {
                 ctMethod.insertBefore("{" +
-                        "if (!" + BrushToolAC.class.getName() + ".handlePacket($1, $2)) return;" +
-                        "$1.rewind();" +
+                        "$2.mark();" +
+                        OnAddIncomingHandler.class.getName() + ".handlePacket($1, $2, $3);" +
+                        "$2.reset();" +
+                        "if (" + OnAddIncomingHandler.class.getName() + ".isShouldBlock()) return;" +
                         "}");
             } catch (CannotCompileException e) {
                 throw new RuntimeException(e);

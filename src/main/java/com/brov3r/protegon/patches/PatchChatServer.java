@@ -1,7 +1,7 @@
 package com.brov3r.protegon.patches;
 
 import com.avrix.agent.ClassTransformer;
-import com.brov3r.protegon.modules.ChatAC;
+import com.brov3r.protegon.modules.ChatModule;
 import javassist.CannotCompileException;
 
 /**
@@ -28,7 +28,7 @@ public class PatchChatServer extends ClassTransformer {
                         "synchronized(chats) {" +
                         "zombie.chat.ChatBase chatBase = (zombie.chat.ChatBase) chats.get(Integer.valueOf(index));" +
                         "zombie.chat.ChatMessage message = chatBase.unpackMessage($1);" +
-                        "if (!" + ChatAC.class.getName() + ".handleChatMessage(chatBase, message)) return;" +
+                        "if (!" + ChatModule.class.getName() + ".handleChatMessage(chatBase, message)) return;" +
                         "}" +
                         "$1.rewind();" +
                         "}");

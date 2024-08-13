@@ -4,8 +4,9 @@ import com.avrix.events.EventManager;
 import com.avrix.plugin.Metadata;
 import com.avrix.plugin.Plugin;
 import com.avrix.utils.YamlFile;
-import com.brov3r.protegon.handlers.*;
-import com.brov3r.protegon.modules.ChatAC;
+import com.brov3r.protegon.handlers.OnPlayerBanHandler;
+import com.brov3r.protegon.handlers.OnPlayerKickHandler;
+import com.brov3r.protegon.modules.ChatModule;
 
 /**
  * Main entry point of the example plugin
@@ -33,13 +34,12 @@ public class Main extends Plugin {
         instance = this;
         loadDefaultConfig();
 
-        EventManager.addListener(new OnServerInitializeHandler());
-        EventManager.addListener(new OnAddIncomingHandler());
-        EventManager.addListener(new OnPlayerFullyConnectedHandler());
         EventManager.addListener(new OnPlayerBanHandler());
         EventManager.addListener(new OnPlayerKickHandler());
 
-        ChatAC.initFilters();
+        ModuleManager.loadModules();
+
+        ChatModule.initFilters();
     }
 
     /**
