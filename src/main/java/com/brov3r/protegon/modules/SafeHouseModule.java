@@ -1,13 +1,14 @@
 package com.brov3r.protegon.modules;
 
 import com.brov3r.protegon.utils.ModuleUtils;
+import zombie.GameWindow;
 import zombie.characters.IsoPlayer;
 import zombie.core.raknet.UdpConnection;
 import zombie.iso.areas.SafeHouse;
 import zombie.network.PacketTypes;
-import zombie.network.packets.SyncSafehousePacket;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 /**
  * Safehouse
@@ -32,21 +33,38 @@ public class SafeHouseModule extends Module {
     @Override
     public void handlePacket(ByteBuffer buffer, IsoPlayer player, UdpConnection connection) {
         if (player == null) return;
-        
-        SyncSafehousePacket packet = new SyncSafehousePacket();
-        packet.parse(buffer, connection);
-        if (packet.validate(connection)) {
-            if (packet.safehouse != null) {
-                SafeHouse safeHouse = packet.safehouse;
 
-                System.out.printf("[#] Safehouse - Player '%s' sent a packet to safehouse '%s' (x: %s, y: %s, owner: %s, remove: %s)%n",
-                        connection.username, safeHouse.getTitle(), safeHouse.getX(), safeHouse.getY(), safeHouse.getOwner(), packet.remove);
-            }
+        SafeHouse safeHouse = SafeHouse.hasSafehouse(player);
 
-            if (!packet.remove) return;
+        int x = buffer.getInt();
+        int y = buffer.getInt();
+        short width = buffer.getShort();
+        short height = buffer.getShort();
 
-            if (packet.ownerUsername.equalsIgnoreCase(player.getUsername())) return;
+        SafeHouse squareHouse = SafeHouse.getSafeHouse(x, y, width, height);
 
+        String ownerUsername = GameWindow.ReadString(buffer);
+        short membersSize = buffer.getShort();
+        ArrayList<String> members = new ArrayList<>();
+        ArrayList<String> membersRespawn = new ArrayList<>();
+
+        for (int i = 0; i < membersSize; ++i) {
+            members.add(GameWindow.ReadString(buffer));
+        }
+
+        short membersRespawnSize = buffer.getShort();
+
+        for (int i = 0; i < membersRespawnSize; ++i) {
+            membersRespawn.add(GameWindow.ReadString(buffer));
+        }
+
+        boolean remove = buffer.get() == 1;
+        String title = GameWindow.ReadString(buffer);
+
+        System.out.printf("[#] Safehouse - Player '%s' sent a packet to safehouse '%s' (x: %s, y: %s, size: %s, owner: %s, remove: %s, members: %s, members respawn: %s)%n",
+                connection.username, title, x, y, width * height, ownerUsername, remove, members, membersRespawn);
+
+        if (safeHouse != squareHouse || (remove && !ownerUsername.equalsIgnoreCase(player.getUsername()))) {
             ModuleUtils.punishPlayer(getConfigName(), connection);
         }
     }

@@ -8,11 +8,13 @@ import zombie.characters.IsoPlayer;
 import zombie.chat.ChatBase;
 import zombie.chat.ChatMessage;
 import zombie.core.raknet.UdpConnection;
+import zombie.network.PacketTypes;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -21,10 +23,17 @@ import java.util.regex.Pattern;
 /**
  * Chat
  */
-public class ChatModule {
+public class ChatModule extends Module {
     private static final List<String> cachedBanWords = new ArrayList<>();
 
     private static final String moduleName = "chatFilter";
+
+    /**
+     * Constructs a new {@code Module} with the specified packet type, name, and description.
+     */
+    public ChatModule() {
+        super(PacketTypes.PacketType.ChatMessageFromPlayer, "chatFilter", "Chat Filter", "Filter for prohibited words and other things");
+    }
 
     /**
      * Initializing filters for prohibited words.
@@ -139,5 +148,19 @@ public class ChatModule {
         }
 
         return cachedBanWords.contains(word.toLowerCase());
+    }
+
+    /**
+     * Handles the processing of a packet received from a {@link UdpConnection}.
+     * This method must be implemented by subclasses to define the specific behavior
+     * when a packet of the associated type is received.
+     *
+     * @param buffer     The {@link ByteBuffer} containing the packet data.
+     * @param player     The {@link IsoPlayer} object.
+     * @param connection The {@link UdpConnection} from which the packet originated.
+     */
+    @Override
+    public void handlePacket(ByteBuffer buffer, IsoPlayer player, UdpConnection connection) {
+        // Ignore
     }
 }

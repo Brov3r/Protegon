@@ -98,7 +98,7 @@ vehicleCommands:
 #        Thunder              #
 #                             #
 ###############################
-# Anti-cheat that prevents the use of Item Dupe
+# Anti-cheat that prevents the use of Thunder
 thunder:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
@@ -115,7 +115,7 @@ thunder:
 #        Fire                 #
 #                             #
 ###############################
-# Anti-cheat that prevents the use of Item Dupe
+# Anti-cheat that prevents the use of Fire
 fire:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
@@ -150,7 +150,7 @@ extraInfo:
 #        Explosive            #
 #                             #
 ###############################
-# Anti-cheat that prevents the use of Item Dupe
+# Anti-cheat that prevents the use of Explosive
 explosive:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
@@ -167,7 +167,7 @@ explosive:
 #        ChangeStats          #
 #                             #
 ###############################
-# Anti-cheat that prevents the use of Item Dupe
+# Anti-cheat that prevents the use of Change Stats
 changeStats:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
@@ -271,29 +271,12 @@ brushTool:
 #        ChatImpersonator     #
 #                             #
 ###############################
-# Anti-cheat that prevents the use of Item Dupe
+# Filtering chat messages from players
 chatImpersonator:
   # Status of this anti-cheat: enabled or disabled
   isEnable: true
   # Text that will be displayed to the player when receiving a punishment
   punishText: "Suspicion of sending a message on someone else's behalf"
-  #  0 - nothing,
-  #  1 - only logging,
-  #  2 - kick from the server + logging,
-  #  3 - blocking by IP/SteamID + logging).
-  punishType: 3
-
-###############################
-#                             #
-#        SafeHouse            #
-#                             #
-###############################
-# Anti-cheat that prevents the use of Item Dupe
-safeHouse:
-  # Status of this anti-cheat: enabled or disabled
-  isEnable: true
-  # Text that will be displayed to the player when receiving a punishment
-  punishText: "Suspicion of using a cheat on safehouse"
   #  0 - nothing,
   #  1 - only logging,
   #  2 - kick from the server + logging,
@@ -339,30 +322,45 @@ chatFilter:
   # Write in lower case.
   patternListWords:
     - "\\w*секс\\w*"
-    - "\\w*https?://\\w*"
+    - "\\w*[@#]\\w+" # Tag Discord spam
+    - "\\w*https?://\\w*" # Link spam
     - "\\w*пид(р|ар|ор)\\w*"
     - "\\w*(го(вн|мик|мек)|(а|о)ху(е|ё|и|й))\\w*"
     - "\\w*((е|ё)ба(н|л|ш|т)|бля(д|т)|(е|ё)б(у|ись|ну(т|л|ш|в)|ка|ли|ен|ищ|ит|ош))\\w*"
     - "\\w*(мудак|г(о|а)ндон|пизд|залуп|х(у(й|е|ё|и|я|ю)|ер|рен))\\w*"
-    - "\\w*хитровыебанн\\w*"
-    - "\\w*захуярил\\w*"
-    - "\\w*наебашил\\w*"
-    - "\\w*поебался\\w*"
-    - "\\w*разъебал\\w*"
-    - "\\w*выебанн\\w*"
-    - "\\w*сьебись\\w*"
-    - "\\w*наебал\\w*"
-    - "\\w*наебаш\\w*"
-    - "\\w*оебыва\\w*"
-    - "\\w*съебал\\w*"
-    - "\\w*сьебал\\w*"
-    - "\\w*ъебись\\w*"
-    - "\\w*eбался\\w*"
-    - "\\w*eбaный\\w*"
-    - "\\w*уебал\\w*"
-    - "\\w*пизд\\w*"
-    - "\\w*пизж\\w*"
-    - "\\w*хуи\\w*"
-    - "\\w*хуй\\w*"
     - "n+([ehiy]+|ay|ey|io|[il]+)[bgq$]+h?(a+|aer|a+h+|a+r+|e+|ea|eoa|e+r+|ie|ier|let|lit|o|or|r+|u|uh|uhr|u+r+|ward|y+)s*"
     - "f[ae]y?g+[oeiu]+t+s?"
+
+###############################
+#                             #
+#        SafeHouse            #
+#                             #
+###############################
+# Anti-cheat that prevents the use of SafeHouse Cheat
+safeHouse:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of using a cheat on safehouse"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 3
+
+###############################
+#                             #
+#        SafeHouse Items      #
+#                             #
+###############################
+# Anti-cheat that prevents the use of SafeHouse Cheat
+safeHouseItems:
+  # Status of this anti-cheat: enabled or disabled
+  isEnable: true
+  # Text that will be displayed to the player when receiving a punishment
+  punishText: "Suspicion of attempting to steal items from someone else's safehouse"
+  #  0 - nothing,
+  #  1 - only logging,
+  #  2 - kick from the server + logging,
+  #  3 - blocking by IP/SteamID + logging).
+  punishType: 2
